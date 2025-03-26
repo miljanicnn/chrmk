@@ -8709,7 +8709,7 @@
         initLoanAppLite(scenariosInfo)
 
         let fetchNewData = async () => {
-            let fetchURL = "websites/api/public/loanScenario/" + scenariosInfo[0].WebLargeRandomUniqueID
+            let fetchURL = "https://testingbuild-www.cimmaronsoftware.com/" + "websites/api/public/loanScenario/" + scenariosInfo[0].WebLargeRandomUniqueID
             fetch(fetchURL)
                 .then(response => response.json())
                 .then(data => {
