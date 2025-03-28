@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Марш на Дрину</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Space Grotesk", sans-serif;
+            font-optical-sizing: auto;
+            --dark: rgb(34, 47, 62);
+            --light: rgb(200, 214, 229);
+            background: var(--dark);
+            color: var(--light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100dvh;
+            gap: 2rem;
+            padding: 2rem 1rem;
+        }
+
+        .yt-player {
+            aspect-ratio: 16/9;
+            width: calc(100% - 2rem);
+            max-height: 12rem;
+        }
+
+        #player {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .lyrics {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        .verse {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 500;
+            justify-content: center;
+            display: flex;
+            flex-direction: column;
+            gap: .25rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Марш на Дрину</h1>
+
+    <div class="yt-player">
+        <div id="player"></div>
+    </div>
+
+    <div class="lyrics">
+        <div class="verse">
+            <p>У бој крените јунаци сви,</p>
+            <p>кренте и не жалте живот свој,</p>
+            <p>Цер нек види строј, Цер нек чује бој, а река Дрина,</p>
+            <p>славу, храброст и јуначку руку оца сина</p>
+        </div>
+        <div class="verse">
+            <p>Пој, пој, Дрино водо хладна ти,</p>
+            <p>памти, причај кад су падали,</p>
+            <p>памти храбри строј који је пун огња, силе, снаге,</p>
+            <p>протерао туђина са реке наше драге</p>
+        </div>
+        <div class="verse">
+            <p>Пој, пој, Дрино, причај роду ми,</p>
+            <p>како смо се храбро борили,</p>
+            <p>певао је строј, војев’о се бој крај хладне воде,</p>
+            <p>крв је текла, крв се лила Дрином због слободе</p>
+        </div>
+    </div>
+
+    <script>
+
+        var player;
+        var startTime = 14;
+        var endTime = 195;
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '360',
+                width: '640',
+                videoId: 'SuG1pqi3niM',
+                playerVars: {
+                    start: startTime,
+                    end: endTime,
+                    autoplay: 1,
+                    controls: 1,
+                    loop: 1,
+                    rel: 0,
+                    mute: 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            event.target.playVideo();
+            setTimeout(() => {
+                event.target.unMute();
+            }, 500);
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.ENDED) {
+                player.seekTo(startTime);
+            }
+        }
+
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    </script>
+
+</body>
+
+</html>
